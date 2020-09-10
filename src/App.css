@@ -2,11 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 body {
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTeSzggmHHdgtcidJM_hLqFPpGgh3EzFqwMfQ&usqp=CAU");
   background-repeat: no-repeat;
   background-size: cover;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 
@@ -16,7 +19,31 @@ input:checked{
 
  
 }
+.Forecast{
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
+  
+}
+.Forecastwrapp
+{
+  margin-left: 20px;
 
+
+}
+.Forecastbox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ margin:20px;
+ padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+}
 .search-box {
   display: flex;
   padding: 20px;
@@ -72,6 +99,12 @@ background-color: transparent;
 
 .weather-box {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 95%;
 }
 img{
  width: 50%;

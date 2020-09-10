@@ -15,6 +15,7 @@ function App() {
     temp_max:undefined,
     temp_min:undefined,
     description:"",
+    forecast:[]
   })
 
   const [Error, setError] = useState(false)
@@ -54,11 +55,11 @@ function App() {
     const city = e.target.elements.City.value;
     if (city) 
     {
-     await   axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APi_key}`)
-
-     .then(
-       res=>
-       {
+     const weather =axios.get (`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APi_key}`);
+     const forecast =axios.get (`https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${APi_key}&units=metric`);
+     axios
+     .all([weather,forecast])
+     .then(axios.spread((res,res1) => {
        setweather(
         {
           city: `${res.data.name}`,
@@ -67,14 +68,14 @@ function App() {
          temp_max:calcelsius(res.data.main.temp_max),
          temp_min:calcelsius(res.data.main.temp_min),
          description:res.data.weather[0].description,
+         forecast:res1.data.list
       }
       
 
         )
-
         setweatherdetail(true)
         setError(false)
-      } 
+      } )
       
       ).catch(()=>{
         setError(true)
@@ -92,7 +93,7 @@ function App() {
   return (
     <div className="App">
       <Form loadweather={getapi} handlechange={handlechange} value={value} />
-      <Weather  weather={weather}  dateBuilder={dateBuilder} weatherdetail={weatherdetail} Error={Error} value={value}/>
+      <Weather key={Math.random}  weather={weather}  dateBuilder={dateBuilder} weatherdetail={weatherdetail} Error={Error} value={value}/>
     </div>
   )
 

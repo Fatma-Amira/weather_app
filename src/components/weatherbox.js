@@ -1,5 +1,5 @@
 import React from 'react'
-
+import ForecastHour from './ForecastHour'
 function weatherbox({weather,dateBuilder,weatherdetail,Error,value}) {
  
   const minmaxtemp= (min,max)=>{
@@ -30,14 +30,30 @@ const detail =
 </h4> 
  {weather.celsius ? (<h1 >{weather.celsius}°C</h1> ) : null} 
  <h2 className="tempminmax">{minmaxtemp(weather.temp_min , weather.temp_max)}</h2>  
- </div>   
+ 
+ </div>  
+
+ <div className="Forecast">
+ {weather.forecast.map((item) => (
+    <ForecastHour
+      key={item.dt}
+      temp={Math.floor(item.main.temp * 1) / 1}
+      icon={item.weather[0].icon}
+      month={item.dt_txt.slice(5, 7)}
+      day={item.dt_txt.slice(8, 10)}
+      hour={item.dt_txt.slice(11, 13) * 1}
+    />
+  ))}
+ </div>  </div> 
  </div> 
-</div>
+ 
+
+
 )
 // not found view
 const found =
 (
-  <div className= "container weather-box"> :( City is not found 
+  <div className= "container"> :( City is not found 
   </div>
 )
     
